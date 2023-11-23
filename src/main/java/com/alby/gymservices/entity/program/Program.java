@@ -1,5 +1,6 @@
 package com.alby.gymservices.entity.program;
 
+import com.alby.gymservices.entity.subscription.Subscription;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,16 +35,34 @@ public class Program {
     )
     private Long id;
 
-    @Column(name = "program_name")
-    private String programName;
+    private String name;
 
-    private BigDecimal price;
+    @Column(name = "price_per_meeting")
+    private BigDecimal pricePerMeeting;
 
     @Column(name = "meeting_duration")
     private Integer meetingDuration;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(
+            name = "program_category_id",
+            referencedColumnName = "id"
+    )
     private ProgramCategory programCategory;
+
+    @OneToMany
+    @JoinColumn(
+            name = "program_id",
+            referencedColumnName = "id"
+    )
+    private List<ProgramSchedule> programSchedule;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "program_id",
+            referencedColumnName = "id"
+    )
+    private Subscription subscription;
 
     @Column(name = "created_by")
     private String createdBy;

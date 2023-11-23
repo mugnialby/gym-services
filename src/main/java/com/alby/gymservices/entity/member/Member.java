@@ -43,12 +43,22 @@ public class Member {
     private String phoneNo;
 
     @OneToOne
+    @JoinColumn(
+            name = "member_validity_id",
+            referencedColumnName = "id"
+    )
     private MemberValidity memberValidity;
 
     @OneToOne
+    @JoinColumn(
+            name = "id",
+            referencedColumnName = "member_id"
+    )
     private MemberCreditCard memberCreditCard;
 
     private String token;
+
+    private String salt;
 
     @Column(name = "created_by")
     private String createdBy;

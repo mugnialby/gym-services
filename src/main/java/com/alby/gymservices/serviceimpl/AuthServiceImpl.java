@@ -8,6 +8,7 @@ import com.alby.gymservices.entity.member.Member;
 import com.alby.gymservices.repository.MemberRepository;
 import com.alby.gymservices.service.AuthService;
 import com.alby.gymservices.service.ValidationService;
+import com.alby.gymservices.util.AuthUtil;
 import com.alby.gymservices.util.MemberUtil;
 import com.alby.gymservices.util.TokenUtil;
 import lombok.RequiredArgsConstructor;
@@ -31,14 +32,13 @@ public class AuthServiceImpl implements AuthService {
         if (null == memberFromDb)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-        if (null == memberFromDb.getToken()) {
-            memberFromDb.setToken(new TokenUtil().generateToken(memberFromDb.getEmail()));
-            memberFromDb.setModifiedBy("SYSTEM");
-            memberRepository.save(memberFromDb);
-        }
+        String token = TokenUtil.generateToken(memberFromDb.getEmail(), memberFromDb.getSalt());
+        memberFromDb.setToken(token);
+        memberFromDb.setModifiedBy(memberFromDb.getEmail());
+        memberRepository.save(memberFromDb);
 
         return WebResponse.<AuthLoginResponse> builder()
-                .data(new MemberUtil().mapMemberToAuthLoginResponse(memberFromDb))
+                .data(AuthUtil.mapTokenToAuthLoginResponse(token))
                 .message("OK")
                 .build();
     }
@@ -52,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         memberFromDb.setToken(null);
-        memberFromDb.setModifiedBy("SYSTEM");
+        memberFromDb.setModifiedBy(memberFromDb.getEmail());
         memberRepository.save(memberFromDb);
 
         return WebResponse.<String> builder()

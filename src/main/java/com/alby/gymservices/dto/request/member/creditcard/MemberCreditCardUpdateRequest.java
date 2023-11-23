@@ -19,19 +19,15 @@ public class MemberCreditCardUpdateRequest {
     @Digits(integer = 12, fraction = 0)
     private Long id;
 
-    @NotBlank
     @Length(max = 128)
     private String cardNo;
 
-    @NotBlank
     @Length(max = 128)
     private String cardHolderName;
 
-    @NotBlank
     @Length(max = 128)
     private String cvv;
 
-    @NotBlank
     @Length(max = 128)
     private String expiredDate;
 

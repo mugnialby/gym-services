@@ -1,6 +1,6 @@
 package com.alby.gymservices.serviceimpl;
 
-import com.alby.userservice.service.ValidationService;
+import com.alby.gymservices.service.ValidationService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;

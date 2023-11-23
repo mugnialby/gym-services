@@ -20,11 +20,9 @@ public class MemberUpdateRequest {
     @Digits(integer = 12, fraction = 0)
     private Long memberId;
 
-    @NotBlank
     @Length(max = 64)
     private String name;
 
-    @NotBlank
     @Length(max = 128)
     private String password;
 

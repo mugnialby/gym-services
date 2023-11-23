@@ -1,9 +1,6 @@
 package com.alby.gymservices.entity.member.validity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -22,6 +19,16 @@ import java.time.Instant;
 })
 public class MemberValidity {
 
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "member_validity_id_seq"
+    )
+    @SequenceGenerator(
+            name = "member_validity_id_seq",
+            sequenceName = "member_validity_id_seq",
+            allocationSize = 1
+    )
     private int id;
 
     private String name;

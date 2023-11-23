@@ -1,4 +1,4 @@
-package com.alby.gymservices.dto.request.payment;
+package com.alby.gymservices.dto.request.subscription;
 
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PaymentVerifyRequest {
+public class SubscribeExtendRequest {
 
     @NotNull
     @Digits(integer = 12, fraction = 0)
@@ -19,5 +19,10 @@ public class PaymentVerifyRequest {
 
     @NotNull
     @Digits(integer = 12, fraction = 0)
-    private Long paymentId;
+    private Long programId;
+
+    @NotNull
+    @Digits(integer = 12, fraction = 0)
+    private Integer meetingDuration;
+
 }

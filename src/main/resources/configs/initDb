@@ -1,0 +1,100 @@
+CREATE TABLE member (
+	id serial PRIMARY KEY,
+	name VARCHAR(128) NOT NULL,
+	email VARCHAR(128) UNIQUE NOT NULL,
+	password VARCHAR(128) NOT NULL,
+	phone_no VARCHAR(14),
+	member_validity_id INTEGER NOT NULL,
+	token VARCHAR(128),
+	salt VARCHAR(128) NOT NULL,
+	created_by VARCHAR(128) NOT NULL,
+	created_at TIMESTAMP NOT NULL,
+	modified_by VARCHAR(128),
+	modified_at TIMESTAMP
+);
+
+SELECT * FROM MEMBER;
+
+CREATE TABLE member_validity (
+	id serial PRIMARY KEY,
+	name VARCHAR(128) NOT NULL,
+	created_by VARCHAR(128) NOT NULL,
+	created_at TIMESTAMP NOT NULL,
+	modified_by VARCHAR(128),
+	modified_at TIMESTAMP
+);
+
+CREATE TABLE member_credit_card (
+	id serial PRIMARY KEY,
+	member_id INTEGER NOT NULL,
+	card_no VARCHAR(128) NOT NULL,
+	card_holder_name VARCHAR(128) NOT NULL,
+	cvv VARCHAR(128) NOT NULL,
+	expired_date VARCHAR(128) NOT NULL,
+	created_by VARCHAR(128) NOT NULL,
+	created_at TIMESTAMP NOT NULL,
+	modified_by VARCHAR(128),
+	modified_at TIMESTAMP
+);
+
+CREATE TABLE program_category (
+	id serial PRIMARY KEY,
+	name VARCHAR(128) NOT NULL,
+	created_by VARCHAR(128) NOT NULL,
+	created_at TIMESTAMP NOT NULL,
+	modified_by VARCHAR(128),
+	modified_at TIMESTAMP
+);
+
+CREATE TABLE program (
+	id serial PRIMARY KEY,
+	name VARCHAR(128) NOT NULL,
+	price_per_meeting NUMERIC(17,2) NOT NULL,
+	meeting_duration INTEGER NOT NULL,
+	program_category_id INTEGER NOT NULL,
+	created_by VARCHAR(128) NOT NULL,
+	created_at TIMESTAMP NOT NULL,
+	modified_by VARCHAR(128),
+	modified_at TIMESTAMP
+);
+
+CREATE TABLE program_detail (
+	id serial PRIMARY KEY,
+	exercise_description VARCHAR(256) NOT NULL,
+	exercise_duration INTEGER NOT NULL,
+	created_by VARCHAR(128) NOT NULL,
+	created_at TIMESTAMP NOT NULL,
+	modified_by VARCHAR(128),
+	modified_at TIMESTAMP
+);
+
+CREATE TABLE program_schedule (
+	id serial PRIMARY KEY,
+	program_id INTEGER NOT NULL,
+	schedule VARCHAR(128) NOT NULL,
+	created_by VARCHAR(128) NOT NULL,
+	created_at TIMESTAMP NOT NULL,
+	modified_by VARCHAR(128),
+	modified_at TIMESTAMP
+);
+
+CREATE TABLE subscription (
+	id serial PRIMARY KEY,
+	member_id INTEGER NOT NULL,
+	program_id INTEGER NOT NULL,
+	subscription_status_id INTEGER NOT NULL,
+	meeting_remaining_duration INTEGER NOT NULL,
+	created_by VARCHAR(128) NOT NULL,
+	created_at TIMESTAMP NOT NULL,
+	modified_by VARCHAR(128),
+	modified_at TIMESTAMP
+);
+
+CREATE TABLE subscription_status (
+	id serial PRIMARY KEY,
+	name VARCHAR(128) NOT NULL,
+	created_by VARCHAR(128) NOT NULL,
+	created_at TIMESTAMP NOT NULL,
+	modified_by VARCHAR(128),
+	modified_at TIMESTAMP
+);

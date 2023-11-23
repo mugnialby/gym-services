@@ -31,12 +31,15 @@ public class TokenServiceImpl implements TokenService {
         if (null == memberFromDb)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-        memberFromDb.setToken(new TokenUtil().generateToken(request.getEmail()));
-        memberFromDb.setModifiedBy("SYSTEM");
+        if (null == memberFromDb.getToken())
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+
+        memberFromDb.setToken(TokenUtil.generateToken(memberFromDb.getEmail(), memberFromDb.getSalt()));
+        memberFromDb.setModifiedBy(memberFromDb.getEmail());
         memberRepository.save(memberFromDb);
 
         return WebResponse.<TokenRefreshResponse> builder()
-                .data(new TokenUtil().mapMemberToTokenRefreshResponse(memberFromDb))
+                .data(TokenUtil.mapMemberToTokenRefreshResponse(memberFromDb))
                 .message("OK")
                 .build();
     }

@@ -3,11 +3,11 @@ package com.alby.gymservices.serviceimpl;
 import com.alby.gymservices.dto.request.program.ProgramByCategoryRequest;
 import com.alby.gymservices.dto.response.WebResponse;
 import com.alby.gymservices.dto.response.programs.ProgramResponse;
-import com.alby.gymservices.entity.member.Member;
+import com.alby.gymservices.entity.program.Program;
 import com.alby.gymservices.repository.ProgramRepository;
 import com.alby.gymservices.service.ProgramService;
 import com.alby.gymservices.service.ValidationService;
-import com.alby.gymservices.util.MemberUtil;
+import com.alby.gymservices.util.ProgramUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,13 +25,12 @@ public class ProgramServiceImpl implements ProgramService {
     public WebResponse<ProgramResponse> getProgramByCategory(ProgramByCategoryRequest request) {
         validationService.validate(request);
 
-        if (programRepository.findByProgramCategory(request.getCategoryId()))
-            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        Program programFromDb = programRepository.findByProgramCategory(request.getCategoryId());
+        if (null == programFromDb)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-        Member member = new MemberUtil().mapMemberRegisterRequestToMember(request);
-        memberRepository.save(member);
-
-        return WebResponse.<String> builder()
+        return WebResponse.<ProgramResponse> builder()
+                .data(ProgramUtil.mapProgramToProgramResponse(programFromDb))
                 .message("OK")
                 .build();
     }

@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 @Builder
 public class MemberUtil {
 
-    public Member mapMemberRegisterRequestToMember(MemberRegisterRequest request) {
+    public static Member mapMemberRegisterRequestToMember(MemberRegisterRequest request) {
         return Member.builder()
                 .name(request.getName())
                 .email(request.getEmail())
@@ -27,7 +27,7 @@ public class MemberUtil {
                 .build();
     }
 
-    public MemberCreditCard mapMemberCcRegisterRequestToMemberCc(MemberCreditCardRegisterRequest request) {
+    public static MemberCreditCard mapMemberCcRegisterRequestToMemberCc(MemberCreditCardRegisterRequest request) {
         return MemberCreditCard.builder()
                 .cardNo(request.getCardNo())
                 .cardHolderName(request.getCardHolderName())
@@ -37,13 +37,13 @@ public class MemberUtil {
                 .build();
     }
 
-    public MemberCheckValidityResponse mapMemberValidityToResponse(MemberValidity request) {
+    public static MemberCheckValidityResponse mapMemberValidityToResponse(MemberValidity request) {
         return MemberCheckValidityResponse.builder()
                 .validationStatus(request.getName())
                 .build();
     }
 
-    public AuthLoginResponse mapMemberToAuthLoginResponse(Member request) {
+    public static AuthLoginResponse mapMemberToAuthLoginResponse(Member request) {
         return AuthLoginResponse.builder()
                 .token(request.getToken())
                 .build();

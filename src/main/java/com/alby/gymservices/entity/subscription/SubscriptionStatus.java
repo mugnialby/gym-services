@@ -1,4 +1,4 @@
-package com.alby.gymservices.entity.program;
+package com.alby.gymservices.entity.subscription;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,29 +14,25 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "program_detail")
+@Table(name = "subscription_status")
 @EntityListeners({
         AuditingEntityListener.class
 })
-public class ProgramDetail {
+public class SubscriptionStatus {
 
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "program_detail_id_seq"
+            generator = "subscription_status_id_seq"
     )
     @SequenceGenerator(
-            name = "program_detail_id_seq",
-            sequenceName = "program_detail_id_seq",
+            name = "subscription_status_id_seq",
+            sequenceName = "subscription_status_id_seq",
             allocationSize = 1
     )
     private Long id;
 
-    @Column(name = "exercise_description")
-    private String exerciseDescription;
-
-    @Column(name = "exercise_duration")
-    private Integer exerciseDuration;
+    private String name;
 
     @Column(name = "created_by")
     private String createdBy;

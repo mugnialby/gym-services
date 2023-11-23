@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,8 +33,12 @@ public class ProgramCategory {
     )
     private Long id;
 
-    @Column(name = "program_category")
-    private String programCategory;
+    private String name;
+
+    @OneToMany(
+            mappedBy = "programCategory"
+    )
+    private List<Program> programs;
 
     @Column(name = "created_by")
     private String createdBy;

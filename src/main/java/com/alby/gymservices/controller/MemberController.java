@@ -2,6 +2,7 @@ package com.alby.gymservices.controller;
 
 import com.alby.gymservices.dto.request.member.MemberCheckValidityRequest;
 import com.alby.gymservices.dto.request.member.MemberRegisterRequest;
+import com.alby.gymservices.dto.request.member.MemberUpdateRequest;
 import com.alby.gymservices.dto.response.WebResponse;
 import com.alby.gymservices.dto.response.member.MemberCheckValidityResponse;
 import com.alby.gymservices.service.MemberService;
@@ -30,5 +31,13 @@ public class MemberController {
     )
     public WebResponse<MemberCheckValidityResponse> checkValidity(@RequestBody MemberCheckValidityRequest request) {
         return memberService.checkValidity(request);
+    }
+
+    @PatchMapping(
+            path = "/update",
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    public WebResponse<String> update(@RequestBody MemberUpdateRequest request) {
+        return memberService.update(request);
     }
 }

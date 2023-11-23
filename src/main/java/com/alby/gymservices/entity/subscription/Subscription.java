@@ -34,10 +34,28 @@ public class Subscription {
     private Long id;
 
     @OneToOne
+    @JoinColumn(
+            name = "member_id",
+            referencedColumnName = "id"
+    )
     private Member member;
 
     @OneToOne
+    @JoinColumn(
+            name = "program_id",
+            referencedColumnName = "id"
+    )
     private Program program;
+
+    @OneToOne
+    @JoinColumn(
+            name = "subscription_status_id",
+            referencedColumnName = "id"
+    )
+    private SubscriptionStatus subscriptionStatus;
+
+    @Column(name = "meeting_remaining_duration")
+    private Integer meetingRemainingDuration;
 
     @Column(name = "created_by")
     private String createdBy;
