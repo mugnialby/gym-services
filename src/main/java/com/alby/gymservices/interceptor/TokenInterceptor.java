@@ -18,7 +18,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             response.setStatus(HttpStatus.FORBIDDEN.value());
             return false;
         } else {
-            return HandlerInterceptor.super.preHandle(request, response, handler);
+            return true;
         }
     }
 }

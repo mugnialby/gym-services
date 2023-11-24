@@ -1,6 +1,7 @@
 package com.alby.gymservices.entity.member;
 
-import com.alby.gymservices.entity.member.validity.MemberValidity;
+import com.alby.gymservices.entity.payment.Payment;
+import com.alby.gymservices.model.member.MemberValidityEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -8,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Getter
@@ -42,19 +44,21 @@ public class Member {
     @Column(name = "phone_no")
     private String phoneNo;
 
-    @OneToOne
-    @JoinColumn(
-            name = "member_validity_id",
-            referencedColumnName = "id"
-    )
-    private MemberValidity memberValidity;
+    @Column(name = "member_validity")
+    @Enumerated(EnumType.STRING)
+    private MemberValidityEnum memberValidityEnum;
 
-    @OneToOne
-    @JoinColumn(
-            name = "id",
-            referencedColumnName = "member_id"
+    @OneToMany(
+            mappedBy = "member",
+            fetch = FetchType.LAZY
     )
-    private MemberCreditCard memberCreditCard;
+    private List<MemberCreditCard> memberCreditCards;
+
+    @OneToMany(
+            mappedBy = "member",
+            fetch = FetchType.LAZY
+    )
+    private List<Payment> payments;
 
     private String token;
 

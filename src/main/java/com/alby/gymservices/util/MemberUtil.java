@@ -3,13 +3,14 @@ package com.alby.gymservices.util;
 import com.alby.gymservices.dto.request.member.MemberRegisterRequest;
 import com.alby.gymservices.dto.request.member.creditcard.MemberCreditCardRegisterRequest;
 import com.alby.gymservices.dto.response.auth.AuthLoginResponse;
-import com.alby.gymservices.dto.response.member.MemberCheckValidityResponse;
 import com.alby.gymservices.entity.member.Member;
 import com.alby.gymservices.entity.member.MemberCreditCard;
-import com.alby.gymservices.entity.member.validity.MemberValidity;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -17,6 +18,11 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 public class MemberUtil {
 
     public static Member mapMemberRegisterRequestToMember(MemberRegisterRequest request) {
+        List<MemberCreditCard> memberCreditCards = new ArrayList<>();
+        memberCreditCards.add(MemberCreditCard.builder()
+                        .
+                .build());
+
         return Member.builder()
                 .name(request.getName())
                 .email(request.getEmail())
@@ -34,12 +40,6 @@ public class MemberUtil {
                 .cvv(request.getCvv())
 //                .expiredDate(request.getExpiredDate())
                 .createdBy(request.getCreatedBy())
-                .build();
-    }
-
-    public static MemberCheckValidityResponse mapMemberValidityToResponse(MemberValidity request) {
-        return MemberCheckValidityResponse.builder()
-                .validationStatus(request.getName())
                 .build();
     }
 

@@ -2,6 +2,7 @@ package com.alby.gymservices.entity.subscription;
 
 import com.alby.gymservices.entity.member.Member;
 import com.alby.gymservices.entity.program.Program;
+import com.alby.gymservices.model.subscription.SubscriptionStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -47,12 +48,9 @@ public class Subscription {
     )
     private Program program;
 
-    @OneToOne
-    @JoinColumn(
-            name = "subscription_status_id",
-            referencedColumnName = "id"
-    )
-    private SubscriptionStatus subscriptionStatus;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "subscription_status")
+    private SubscriptionStatusEnum subscriptionStatusEnum;
 
     @Column(name = "meeting_remaining_duration")
     private Integer meetingRemainingDuration;

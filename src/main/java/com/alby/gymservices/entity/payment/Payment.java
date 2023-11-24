@@ -1,6 +1,7 @@
 package com.alby.gymservices.entity.payment;
 
 import com.alby.gymservices.entity.member.Member;
+import com.alby.gymservices.model.payment.PaymentStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -31,7 +32,7 @@ public class Payment {
     )
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(
             name = "member_id",
             referencedColumnName = "id"
@@ -40,10 +41,7 @@ public class Payment {
 
     private BigDecimal total;
 
-    @OneToOne
-    @JoinColumn(
-            name = "payment_status_id",
-            referencedColumnName = "id"
-    )
-    private PaymentStatus paymentStatus;
+    @Column(name = "payment_status")
+    @Enumerated(EnumType.STRING)
+    private PaymentStatusEnum paymentStatusEnum;
 }

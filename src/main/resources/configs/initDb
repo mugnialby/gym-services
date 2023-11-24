@@ -4,7 +4,7 @@ CREATE TABLE member (
 	email VARCHAR(128) UNIQUE NOT NULL,
 	password VARCHAR(128) NOT NULL,
 	phone_no VARCHAR(14),
-	member_validity_id INTEGER NOT NULL,
+	member_validity VARCHAR(24) NOT NULL,
 	token VARCHAR(128),
 	salt VARCHAR(128) NOT NULL,
 	created_by VARCHAR(128) NOT NULL,
@@ -12,6 +12,11 @@ CREATE TABLE member (
 	modified_by VARCHAR(128),
 	modified_at TIMESTAMP
 );
+
+DROP TABLE MEMBER;
+DROP TABLE MEMBER_VALIDITY;
+DROP TABLE subscription;
+DROP TABLE subscription_status;
 
 SELECT * FROM MEMBER;
 
@@ -46,17 +51,27 @@ CREATE TABLE program_category (
 	modified_at TIMESTAMP
 );
 
+DROP TABLE program_category;
+
 CREATE TABLE program (
 	id serial PRIMARY KEY,
 	name VARCHAR(128) NOT NULL,
 	price_per_meeting NUMERIC(17,2) NOT NULL,
 	meeting_duration INTEGER NOT NULL,
-	program_category_id INTEGER NOT NULL,
+	program_category VARCHAR(64) NOT NULL,
 	created_by VARCHAR(128) NOT NULL,
 	created_at TIMESTAMP NOT NULL,
 	modified_by VARCHAR(128),
 	modified_at TIMESTAMP
 );
+
+ALTER TABLE PROGRAM
+ALTER COLUMN program_category VARCHAR(64) NOT NULL;
+
+ALTER TABLE PROGRAM
+RENAME COLUMN program_category_id TO program_category;
+
+DROP TABLE program;
 
 CREATE TABLE program_detail (
 	id serial PRIMARY KEY,
@@ -82,7 +97,7 @@ CREATE TABLE subscription (
 	id serial PRIMARY KEY,
 	member_id INTEGER NOT NULL,
 	program_id INTEGER NOT NULL,
-	subscription_status_id INTEGER NOT NULL,
+	subscription_status VARCHAR(64) NOT NULL,
 	meeting_remaining_duration INTEGER NOT NULL,
 	created_by VARCHAR(128) NOT NULL,
 	created_at TIMESTAMP NOT NULL,

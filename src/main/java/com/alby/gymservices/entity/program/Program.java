@@ -45,7 +45,7 @@ public class Program {
 
     @ManyToOne
     @JoinColumn(
-            name = "program_category_id",
+            name = "program_category",
             referencedColumnName = "id"
     )
     private ProgramCategory programCategory;

@@ -2,15 +2,11 @@ package com.alby.gymservices.serviceimpl;
 
 import com.alby.gymservices.dto.request.payment.PaymentCheckRequest;
 import com.alby.gymservices.dto.response.WebResponse;
-import com.alby.gymservices.dto.response.member.MemberCheckValidityResponse;
 import com.alby.gymservices.dto.response.payment.PaymentCheckResponse;
-import com.alby.gymservices.entity.member.Member;
 import com.alby.gymservices.entity.payment.Payment;
 import com.alby.gymservices.repository.PaymentRepository;
 import com.alby.gymservices.service.PaymentService;
 import com.alby.gymservices.service.ValidationService;
-import com.alby.gymservices.util.Constant;
-import com.alby.gymservices.util.MemberUtil;
 import com.alby.gymservices.util.PaymentUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

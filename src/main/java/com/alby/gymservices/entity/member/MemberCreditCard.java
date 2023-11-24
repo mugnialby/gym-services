@@ -33,8 +33,12 @@ public class MemberCreditCard {
     )
     private Long id;
 
-    @Column(name = "member_id")
-    private Long memberId;
+    @ManyToOne
+    @JoinColumn(
+            name = "member_id",
+            referencedColumnName = "id"
+    )
+    private Member member;
 
     @Column(name = "card_no")
     private String cardNo;
